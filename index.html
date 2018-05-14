@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <!-- Retrieved data will be dumped here -->
+  
+  <div class='animalbtn', 'row'>
+
+    </div>
+    <br>
+    <div id='adddiv', 'row'>
+        Add an animal<input type='text' id='inputtext'/>
+        <input type="button" id='addbtn' value='Submit'/>
+    </div>
+    <div id="imagestore" ,'row' >
+      <table id='ptable'>
+        
+      </table>
+    </div>
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  
+    var APIKey = "166a433c57516f51dfab1f7edaed8413";
+
+    var topics =['cats','dog','rabbit','hamster','goldfish','bird','turtle','frog','chicken']
+  
+  $(document).ready(function()
+  {
+  for (var i=0; i<topics.length; i++)
+    {
+        var btn = $('<button>');
+            btn.addClass('animal');
+            btn.attr('id', topics[i]);
+            btn.attr('value', topics[i]);
+            btn.text(topics[i]);   
+
+        $('.animalbtn').append(btn);
+    }
+
+    $('#addbtn').on('click', function()
+    {
+      
+        var inputtext = $('#inputtext').val();
+        var newbtn = $('<button>');
+            newbtn.addClass('animal');
+            newbtn.attr('id',inputtext,)
+            newbtn.text(inputtext);
+
+            $('.animalbtn').append(newbtn);
+            topics.push(inputtext);
+        
+    });
+
+// animals button on click function
+
+    $('button').on('click',function()
+    { 
+      $('#ptable').empty();
+      var tr = $('<tr>');
+      
+      var data = $(this).val();
+      // alert(data);
+      var imageIndex=0;
+      for(var i=0; i<10; i++)
+        {
+          var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag='"+data+"'";
+          $.ajax({
+                 url: queryURL,
+                 method: "GET"
+                }).then(function(response) 
+                {
+                  // console.log(response);
+                  var dimage = response.data.image_original_url;
+                  // console.log(dimage);
+                  var mimage = $('<img>');
+                      mimage.attr('src', dimage);
+                      mimage.attr('data-still',dimage);
+                      mimage.attr('data-animate',dimage);
+                      mimage.attr('data-state','animate');
+                      mimage.attr('class','gif');
+
+                  var myClass = mimage.className;
+
+                    console.log(mimage.className);
+
+
+                      mimage.attr('alt','image');
+
+                    if(imageIndex == 4 || imageIndex == 8)
+                    { 
+                         tr = $('<tr>');
+                    }
+                    imageIndex++;
+                   var td=$('<td>');
+                   td.append(mimage);
+                   tr.prepend(td);
+                   $('#ptable').append(tr);
+                });
+        }
+        // console.log(myClass);
+    });
+
+// click on image function()
+
+    $(".gif").click(function()
+    {
+      var state = $(this).attr('data-state');
+
+      if(state == 'still')
+      {
+        alert('image is still');
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+      else
+      {
+        alert('image is not animate');
+        // $(this).attr("src", $(this).attr("data-animate"));
+        // $(this).attr("data-state", "animate");
+      }
+
+
+    });
+
+  });
+  </script>
+</body>
+
+</html>

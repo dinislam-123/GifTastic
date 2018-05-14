@@ -1,0 +1,40 @@
+
+body
+{
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.animal, #addbtn
+{
+    background-color: blue;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#addbtn
+{
+    background-color: blue;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+#adddiv
+{
+    text-align: right;
+}
+img{ 
+    width:150px;
+    height:150px;
+    padding-right:10px;
+}
+
+#imagestore
+{
+    padding-right: 10px;
+}
