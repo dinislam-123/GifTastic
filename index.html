@@ -5,48 +5,52 @@
     <title></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
   <!-- Retrieved data will be dumped here -->
-
+  
   <div class='animalbtn', 'row'>
 
     </div>
     <br>
-    <div id='adddiv', 'row'>
+    <div id='adddiv','row'>
         Add an animal<input type='text' id='inputtext'/>
         <input type="button" id='addbtn' value='Submit'/>
     </div>
-    <div id="imagestore" ,'row' >
-      <table id='ptable'>
 
+    <!-- cleate table to store images -->
+
+    <div id="imagestore", 'row' >
+      <table id='ptable'>
+        
       </table>
     </div>
+    
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
-
+  
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
     var topics =['cats','dog','rabbit','hamster','goldfish','bird','turtle','frog','chicken']
-
+  
   $(document).ready(function()
   {
-  for (var i=0; i<topics.length; i++)
+    for (var i=0; i<topics.length; i++)
     {
         var btn = $('<button>');
             btn.addClass('animal');
             btn.attr('id', topics[i]);
             btn.attr('value', topics[i]);
-            btn.text(topics[i]);
+            btn.text(topics[i]);   
 
         $('.animalbtn').append(btn);
     }
 
     $('#addbtn').on('click', function()
     {
-
+      
         var inputtext = $('#inputtext').val();
         var newbtn = $('<button>');
             newbtn.addClass('animal');
@@ -55,16 +59,16 @@
 
             $('.animalbtn').append(newbtn);
             topics.push(inputtext);
-
+        
     });
 
 // animals button on click function
 
     $('button').on('click',function()
-    {
+    { 
       $('#ptable').empty();
       var tr = $('<tr>');
-
+      
       var data = $(this).val();
       // alert(data);
       var imageIndex=0;
@@ -74,30 +78,27 @@
           $.ajax({
                  url: queryURL,
                  method: "GET"
-                }).then(function(response)
+                }).then(function(response) 
                 {
-                  console.log(response);
-                  // url of the gif image
+                  // console.log(response);
                   var dimage = response.data.image_original_url;
-                  // console.log(dimage);
+                  var simage = response.data.fixed_width_small_still_url;
                   var mimage = $('<img>');
-                      mimage.attr('src', dimage);
-                      // here should pass the jpeg version of the gif
-                      // e.g. response.data.images.480w_still.url
-                      mimage.attr('data-still',dimage);
+                      mimage.attr('src', simage);
+                      mimage.attr('data-still', simage);
                       mimage.attr('data-animate',dimage);
                       mimage.attr('data-state','animate');
                       mimage.attr('class','gif');
 
-                  var myClass = mimage[0].className;
+                  // var myClass = mimage.className;
 
-                    console.log('hello from class', myClass);
+                    // console.log(mimage.className);
 
 
                       mimage.attr('alt','image');
 
                     if(imageIndex == 4 || imageIndex == 8)
-                    {
+                    { 
                          tr = $('<tr>');
                     }
                     imageIndex++;
@@ -110,30 +111,32 @@
         // console.log(myClass);
     });
 
-// click on image function()
+// click on image function() will affect over the image
 
-    $(".gif").click(function()
+
+    $("body").on('click', '.gif', function(event)
     {
-      var state = $(this).attr('data-state');
+      // console.log("on click");
+      // var state = $(this).attr('data-state');
+        var state = $(this).attr('data-state');
 
-      if(state == 'still')
-      {
-        alert('image is still');
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-      }
+        if(state === 'still')
+        {
+          // alert('image is still');
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+       }
       else
-      {
-        alert('image is not animate');
-        // $(this).attr("src", $(this).attr("data-animate"));
-        // $(this).attr("data-state", "animate");
-      }
-
+        {
+         // alert('image is not animate');
+           $(this).attr("src", $(this).attr("data-animate"));
+           $(this).attr("data-state", "animate");
+       }
+      
 
     });
 
   });
   </script>
 </body>
-
 </html>
