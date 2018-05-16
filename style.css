@@ -28,10 +28,16 @@ body
 {
     text-align: right;
 }
+
+#tdclass
+{
+    padding-left: 5px;
+}
 img{ 
     width:150px;
     height:150px;
     padding-right:10px;
+    border-radius: 30%;
 }
 
 #imagestore

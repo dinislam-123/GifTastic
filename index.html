@@ -90,8 +90,7 @@
                       mimage.attr('data-state','animate');
                       mimage.attr('class','gif');
 
-                  // var myClass = mimage.className;
-
+                    // var myClass = mimage.className;
                     // console.log(mimage.className);
 
 
@@ -103,6 +102,7 @@
                     }
                     imageIndex++;
                    var td=$('<td>');
+                        td.attr('id','tdclass');
                    td.append(mimage);
                    tr.prepend(td);
                    $('#ptable').append(tr);
@@ -121,19 +121,17 @@
         var state = $(this).attr('data-state');
 
         if(state === 'still')
-        {
+          {
           // alert('image is still');
-          $(this).attr("src", $(this).attr("data-still"));
-          $(this).attr("data-state", "still");
-       }
-      else
-        {
+           $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+          }
+        else
+          {
          // alert('image is not animate');
            $(this).attr("src", $(this).attr("data-animate"));
            $(this).attr("data-state", "animate");
-       }
-      
-
+         }
     });
 
   });
