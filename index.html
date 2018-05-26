@@ -10,30 +10,36 @@
 
 <body>
   <!-- Retrieved data will be dumped here -->
-  
-  <div class='animalbtn', 'row'>
+  <div class='jumbotron'>
+    <h1> Animal Buttons</h1>
+  </div>
+  <div class='row'>
+      <div class='col-sm-12 animalbtn'>
 
-    </div>
-    <br>
-    <div id='adddiv','row'>
+      </div>
+  </div>
+  <br>
+  <div id='row'>
+      <div class='col-sm-12 adddiv'>
+
+      </div>
         Add an animal<input type='text' id='inputtext'/>
         <input type="button" id='addbtn' value='Submit'/>
     </div>
 
     <!-- cleate table to store images -->
 
-    <div id="imagestore", 'row' >
-      <table id='ptable'>
-        
-      </table>
+    <div id="row">
+        <div class='col-sm-12 imagestore'>
+            <table id='ptable'></table>
+        </div>
     </div>
     
 
   <script type="text/javascript">
   
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
-
-    var topics =['cats','dog','rabbit','hamster','goldfish','bird','turtle','frog','chicken']
+    var topics =['cats','dog','rabbit','hamster','goldfish','bird','turtle','frog','chicken','tiger','lion']
   
   $(document).ready(function()
   {
@@ -44,7 +50,6 @@
             btn.attr('id', topics[i]);
             btn.attr('value', topics[i]);
             btn.text(topics[i]);   
-
         $('.animalbtn').append(btn);
     }
 
@@ -55,11 +60,11 @@
         var newbtn = $('<button>');
             newbtn.addClass('animal');
             newbtn.attr('id',inputtext,)
+            newbtn.attr('value',inputtext);
             newbtn.text(inputtext);
-
             $('.animalbtn').append(newbtn);
-            topics.push(inputtext);
-        
+            topics.push(newbtn);
+            topics.read();
     });
 
 // animals button on click function
@@ -89,13 +94,9 @@
                       mimage.attr('data-animate',dimage);
                       mimage.attr('data-state','animate');
                       mimage.attr('class','gif');
-
                     // var myClass = mimage.className;
                     // console.log(mimage.className);
-
-
                       mimage.attr('alt','image');
-
                     if(imageIndex == 4 || imageIndex == 8)
                     { 
                          tr = $('<tr>');
@@ -113,13 +114,11 @@
 
 // click on image function() will affect over the image
 
-
     $("body").on('click', '.gif', function(event)
     {
       // console.log("on click");
       // var state = $(this).attr('data-state');
         var state = $(this).attr('data-state');
-
         if(state === 'still')
           {
           // alert('image is still');
@@ -133,7 +132,6 @@
            $(this).attr("data-state", "animate");
          }
     });
-
   });
   </script>
 </body>
